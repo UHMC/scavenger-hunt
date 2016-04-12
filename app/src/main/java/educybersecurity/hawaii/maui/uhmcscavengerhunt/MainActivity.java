@@ -54,11 +54,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             String UUID = Integer.toString(beacon.getServiceUuid());
             String Type = Integer.toString(beacon.getBeaconTypeCode());
             Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
-            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x20) {
+            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
                 // This looks for a Eddystone-UID frame, then checks to see what type it is.
                 // For our purposes, we use 0x10, which defines an Eddystone-URL
                 Identifier namespaceId = beacon.getId1();
                 Identifier instanceId = beacon.getId2();
+
                 Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
                         " and instance id: " + instanceId +
                         " approximately " + beacon.getDistance() + " meters away.");
