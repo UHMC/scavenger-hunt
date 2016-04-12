@@ -28,12 +28,12 @@ import org.altbeacon.beacon.Region;
 import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
-    private BeaconManager mBeaconManager;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private BeaconManager mBeaconManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +42,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -58,17 +51,22 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         for (Beacon beacon: beacons) {
-            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x00) {
-                // This is a Eddystone-UID frame
+            String UUID = Integer.toString(beacon.getServiceUuid());
+            String Type = Integer.toString(beacon.getBeaconTypeCode());
+            Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
+            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x20) {
+                // This looks for a Eddystone-UID frame, then checks to see what type it is.
+                // For our purposes, we use 0x10, which defines an Eddystone-URL
                 Identifier namespaceId = beacon.getId1();
                 Identifier instanceId = beacon.getId2();
-                Log.d("RangingActivity", "I see a beacon transmitting namespace id: " + namespaceId +
+                Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
                         " and instance id: " + instanceId +
                         " approximately " + beacon.getDistance() + " meters away.");
             }
         }
     }
     public void onBeaconServiceConnect() {
+        Log.d("Beacons","How about here?");
         Region region = new Region("all-beacons-region", null, null, null);
         try {
             mBeaconManager.startRangingBeaconsInRegion(region);
@@ -80,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void onResume() {
+        Log.d("Beacons","Program actually gets here");
         super.onResume();
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         // Detect the main Eddystone-UID frame:
@@ -88,28 +87,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager.bind(this);
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onPause() {
+        super.onPause();
+        mBeaconManager.unbind(this);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onStart() {
