@@ -54,11 +54,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             String UUID = Integer.toString(beacon.getServiceUuid());
             String Type = Integer.toString(beacon.getBeaconTypeCode());
             Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
-            if (beacon.getServiceUuid() == 0xfeaa && beacon.getBeaconTypeCode() == 0x10) {
+            try{Log.d("Beacons",new String(beacon.getId1().toByteArray(),"UTF-8"));}catch(Exception e){}
+            if (beacon.getServiceUuid() == 0xfeaa /*&& beacon.getBeaconTypeCode() == 0x0*/) {
                 // This looks for a Eddystone-UID frame, then checks to see what type it is.
                 // For our purposes, we use 0x10, which defines an Eddystone-URL
                 Identifier namespaceId = beacon.getId1();
                 Identifier instanceId = beacon.getId2();
+                //Identifier testId=beacon.getId3();
+                //Log.d("Beacons","testId: "+testId);
 
                 Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
                         " and instance id: " + instanceId +
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         // Detect the main Eddystone-UID frame:
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
-                setBeaconLayout("s:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19"));
+                setBeaconLayout("s:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-13,i:14-19"));
         mBeaconManager.bind(this);
     }
 
