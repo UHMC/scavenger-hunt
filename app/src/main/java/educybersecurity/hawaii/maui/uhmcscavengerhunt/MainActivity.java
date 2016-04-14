@@ -5,15 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.Range;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -44,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TextView beaconCheck = new TextView(this);
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -69,22 +65,49 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         for (Beacon beacon: beacons) {
-            String UUID = Integer.toString(beacon.getServiceUuid());
-            String Type = Integer.toString(beacon.getBeaconTypeCode());
-            Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
-            try{Log.d("Beacons",new String(beacon.getId1().toByteArray(),"UTF-8"));}catch(Exception e){}
-            if (beacon.getServiceUuid() == 0xfeaa /*&& beacon.getBeaconTypeCode() == 0x0*/) {
-                // This looks for a Eddystone-UID frame, then checks to see what type it is.
-                // For our purposes, we use 0x10, which defines an Eddystone-URL
-                Identifier namespaceId = beacon.getId1();
-                Identifier instanceId = beacon.getId2();
-                //Identifier testId=beacon.getId3();
-                //Log.d("Beacons","testId: "+testId);
+//            String UUID = Integer.toString(beacon.getServiceUuid());
+//            String Type = Integer.toString(beacon.getBeaconTypeCode());
+//            Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
+//            try{Log.d("Beacons",new String(beacon.getId1().toByteArray(),"UTF-8"));}catch(Exception e){}
+//            if (beacon.getServiceUuid() == 0xfeaa /*&& beacon.getBeaconTypeCode() == 0x0*/) {
+//                // This looks for a Eddystone-UID frame, then checks to see what type it is.
+//                // For our purposes, we use 0x10, which defines an Eddystone-URL
+//                Identifier namespaceId = beacon.getId1();
+//                Identifier instanceId = beacon.getId2();
+//                //Identifier testId=beacon.getId3();
+//                //Log.d("Beacons","testId: "+testId);
+//
+//                Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
+//                        " and instance id: " + instanceId +
+//                        " approximately " + beacon.getDistance() + " meters away.");
+            //  }
+            Identifier id1 = beacon.getId1();
+            Identifier id2 = beacon.getId2();
 
-                Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
-                        " and instance id: " + instanceId +
-                        " approximately " + beacon.getDistance() + " meters away.");
+            Log.d("Beacons","Identifier 1: " + id1 + "\nIdentifier 2: " + id2 /*+ "\nIdentifier 3: " + id3*/);
+            String pointOne = "0x027261646975736e6574";
+            String url  = id1.toHexString();
+            Log.d("Hexall", url);
+            Log.d("Hextest",pointOne);
+            if(url.equals(pointOne)) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView beaconCheck = (TextView) findViewById(R.id.beaconCheck);
+                        beaconCheck.setText("Beacon detected!");
+                    }
+                });
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView beaconCheck = (TextView) findViewById(R.id.beaconCheck);
+                        beaconCheck.setText("Beacon not detected");
+                    }
+                });
+
             }
+
         }
     }
     public void onBeaconServiceConnect() {
