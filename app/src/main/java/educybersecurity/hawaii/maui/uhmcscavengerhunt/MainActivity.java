@@ -1,5 +1,7 @@
 package educybersecurity.hawaii.maui.uhmcscavengerhunt;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -28,6 +30,7 @@ import org.altbeacon.beacon.Region;
 import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
+    private static final int REQUEST_ENABLE_BT=1;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -46,6 +49,21 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        BluetoothAdapter btAdapter=BluetoothAdapter.getDefaultAdapter();
+        if(btAdapter!=null&&!btAdapter.isEnabled()){
+            Intent enableBtIntent=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_ENABLE_BT){
+            if(resultCode==RESULT_OK)Log.d("Beacons","Bluetooth enabled.");
+            else Log.d("Beacons","Bluetooth not enabled!");
+        }
     }
 
     @Override
