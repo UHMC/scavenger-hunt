@@ -21,11 +21,18 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final int REQUEST_ENABLE_BT=1;
+    private static final String[] hexURLs={
+            "0x00000000",
+            "0x00000000"
+    };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -40,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView beaconCheck = new TextView(this);
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -65,49 +71,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         for (Beacon beacon: beacons) {
-//            String UUID = Integer.toString(beacon.getServiceUuid());
-//            String Type = Integer.toString(beacon.getBeaconTypeCode());
-//            Log.d("Beacons","UUID is: "+UUID+" and Type is "+Type);
-//            try{Log.d("Beacons",new String(beacon.getId1().toByteArray(),"UTF-8"));}catch(Exception e){}
-//            if (beacon.getServiceUuid() == 0xfeaa /*&& beacon.getBeaconTypeCode() == 0x0*/) {
-//                // This looks for a Eddystone-UID frame, then checks to see what type it is.
-//                // For our purposes, we use 0x10, which defines an Eddystone-URL
-//                Identifier namespaceId = beacon.getId1();
-//                Identifier instanceId = beacon.getId2();
-//                //Identifier testId=beacon.getId3();
-//                //Log.d("Beacons","testId: "+testId);
-//
-//                Log.d("Beacons", "I see a beacon transmitting namespace id: " + namespaceId +
-//                        " and instance id: " + instanceId +
-//                        " approximately " + beacon.getDistance() + " meters away.");
-            //  }
-            Identifier id1 = beacon.getId1();
-            Identifier id2 = beacon.getId2();
-
-            Log.d("Beacons","Identifier 1: " + id1 + "\nIdentifier 2: " + id2 /*+ "\nIdentifier 3: " + id3*/);
-            String pointOne = "0x027261646975736e6574";
-            String url  = id1.toHexString();
-            Log.d("Hexall", url);
-            Log.d("Hextest",pointOne);
-            if(url.equals(pointOne)) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView beaconCheck = (TextView) findViewById(R.id.beaconCheck);
-                        beaconCheck.setText("Beacon detected!");
-                    }
-                });
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView beaconCheck = (TextView) findViewById(R.id.beaconCheck);
-                        beaconCheck.setText("Beacon not detected");
-                    }
-                });
-
-            }
-
+            //Byte[] url=new Byte[]
+            Log.d("BeaconToString", UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
         }
     }
     public void onBeaconServiceConnect() {
@@ -128,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         // Detect the main Eddystone-UID frame:
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
-                setBeaconLayout("s:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-13,i:14-19"));
+                setBeaconLayout("s:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v"));
         mBeaconManager.bind(this);
     }
 
