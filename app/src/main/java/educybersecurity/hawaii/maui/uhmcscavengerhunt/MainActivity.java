@@ -120,12 +120,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             try {
                 if (new String(UrlBeaconUrlCompressor.compress(hexURLs[currentStop]), "UTF-8").equals(new String(beacon.getId1().toByteArray(), "UTF-8"))) {
                     //NEXT STOP DETECTED
-                    currentStop++;
-                    fw = new FileWriter(file, false);
-                    fw.write(currentStop);
-                    fw.flush();
-                    fw.close();
-                    Log.d("Step", Integer.toString(currentStop));
 
                     if (beacon.getDistance() <= RADIUS) {
 
@@ -134,15 +128,47 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         switch (currentStop) {
                             case 0:
                                 // update UI to step 1
+
+                                // Increases currentStop by 1 and writes it to file
+                                currentStop++;
+                                fw = new FileWriter(file, false);
+                                fw.write(currentStop);
+                                fw.flush();
+                                fw.close();
+                                Log.d("Step", Integer.toString(currentStop));
                                 break;
                             case 1:
                                 // update UI to step 2
+
+                                // Increases currentStop by 1 and writes it to file
+                                currentStop++;
+                                fw = new FileWriter(file, false);
+                                fw.write(currentStop);
+                                fw.flush();
+                                fw.close();
+                                Log.d("Step", Integer.toString(currentStop));
                                 break;
                             case 2:
                                 // update UI to step 3
+
+                                // Increases currentStop by 1 and writes it to file
+                                currentStop++;
+                                fw = new FileWriter(file, false);
+                                fw.write(currentStop);
+                                fw.flush();
+                                fw.close();
+                                Log.d("Step", Integer.toString(currentStop));
                                 break;
                             case 3:
                                 // update UI to step 4
+
+                                // Increases currentStop by 1 and writes it to file
+                                currentStop++;
+                                fw = new FileWriter(file, false);
+                                fw.write(currentStop);
+                                fw.flush();
+                                fw.close();
+                                Log.d("Step", Integer.toString(currentStop));
                                 break;
                         }
                     }
