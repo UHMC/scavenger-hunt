@@ -29,9 +29,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final int REQUEST_ENABLE_BT=1;
+    private int currentStop;
     private static final String[] hexURLs={
-            "0x00000000",
-            "0x00000000"
+            "http://www.example.com/folder/file1.ext/",
+            "http://www.example.com/folder/file2.ext/",
+            "http://www.example.com/folder/file3.ext/",
+            "http://www.example.com/folder/file4.ext/",
+            "http://www.example.com/folder/file5.ext/",
+            "http://www.example.com/folder/file6.ext/"
     };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -72,7 +77,16 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
         for (Beacon beacon: beacons) {
             //Byte[] url=new Byte[]
-            Log.d("BeaconToString", UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
+            //Log.d("BeaconToString", UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
+            //Log.d("whatthefuck",UrlBeaconUrlCompressor.uncompress(UrlBeaconUrlCompressor.compress("http://www.something.net/folder/file.ext")));
+            try{
+                if(new String(UrlBeaconUrlCompressor.compress(hexURLs[currentStop]),"UTF-8").equals(new String(beacon.getId1().toByteArray(),"UTF-8"))){
+                    //NEXT STOP DETECTED
+                    if(beacon.getDistance()<=RADIUS){
+                        //USER HAS VISITED THE LOCATION
+                    }
+                }
+            }catch(Exception e){};
         }
     }
     public void onBeaconServiceConnect() {
