@@ -31,7 +31,7 @@ import java.util.Collection;
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final int REQUEST_ENABLE_BT = 1;
     private int currentStop;
-    private static final int RADIUS = 5;
+    private static final double RADIUS = 2;
     private static final String[] hexURLs = {
             "http://test1url.net",
             "http://www.example.com/folder/file2.ext/",
