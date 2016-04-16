@@ -8,6 +8,7 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -128,6 +129,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         switch (currentStop) {
                             case 0:
                                 // update UI to step 1
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        TextView main = (TextView) findViewById(R.id.step);
+                                        main.setText("http://test1url.net");
+                                    }
+                                });
+
+
 
                                 // Increases currentStop by 1 and writes it to file
                                 currentStop++;
@@ -178,6 +187,18 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     }
 
 }
+    public void reset(View v) {
+        FileWriter fw;
+        File file = new File(getFilesDir().getPath().toString() + "/prefs.txt");
+
+        try {
+            fw = new FileWriter(file, false);
+            fw.write(0);
+            fw.flush();
+            fw.close();
+        }catch(Exception e){}
+    }
+
 
     public void onBeaconServiceConnect() {
         Log.d("Beacons", "How about here?");
