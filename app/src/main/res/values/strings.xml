@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">UHMC Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
+    <string name="step0">Please go to KAA 218 to begin the tour. (info to find step 1)</string>
+    <string name="step1">Info to find step 2</string>
+    <string name="step2">Info to find step 3</string>
+    <string name="step3">Info to find step 4</string>
+    <string name="step4">End of the tour</string>
 </resources>

@@ -22,6 +22,7 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.utils.UrlBeaconUrlCompressor;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileReader;
@@ -53,27 +54,57 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        TextView content = (TextView) findViewById(R.id.step);
         // Creates a file for keeping track of steps, only happens once also initializes currentStop
         FileWriter fw;
         FileReader fr;
         File file = new File(getFilesDir().getPath().toString() + "/prefs.txt");
+
         try {
-            // Writes 0 at file creation (step 1)
+            // Writes 0 at file creation (step 0) once
             file.createNewFile();
             fw = new FileWriter(file, true);
             fw.write(0);
             fw.flush();
             fw.close();
 
-            // Reads from file and initializes currentStop
+            // Reads from file and initializes currentStop and sets up interface if user is not within first step
             fr = new FileReader(file);
             currentStop = fr.read();
             fr.close();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        switch(currentStop) {
+            case 0:
+                content.setText(R.string.step0);
+/*
+                try {
+                    currentStop++;
+                    fw = new FileWriter(file, false);
+                    fw.write(currentStop);
+                    fw.flush();
+                    fw.close();
+                } catch (Exception e) {}
+                Log.d("Step","I just finished writing to file, step 0 changed to step 1 | Current step: " + Integer.toString(currentStop));
+*/
+                break;
+            case 1:
+                content.setText(R.string.step1);
+                break;
+            case 2:
+                content.setText(R.string.step2);
+                break;
+            case 3:
+                content.setText(R.string.step3);
+                break;
+            case 4:
+                content.setText(R.string.step4);
+                break;
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -132,10 +163,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         TextView main = (TextView) findViewById(R.id.step);
-                                        main.setText("http://test1url.net");
+                                        main.setText(R.string.step1);
                                     }
                                 });
-
 
 
                                 // Increases currentStop by 1 and writes it to file
@@ -148,6 +178,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 break;
                             case 1:
                                 // update UI to step 2
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        TextView main = (TextView) findViewById(R.id.step);
+                                        main.setText(R.string.step2);
+                                    }
+                                });
 
                                 // Increases currentStop by 1 and writes it to file
                                 currentStop++;
@@ -159,6 +195,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 break;
                             case 2:
                                 // update UI to step 3
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        TextView main = (TextView) findViewById(R.id.step);
+                                        main.setText(R.string.step3);
+                                    }
+                                });
 
                                 // Increases currentStop by 1 and writes it to file
                                 currentStop++;
@@ -170,6 +212,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 break;
                             case 3:
                                 // update UI to step 4
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        TextView main = (TextView) findViewById(R.id.step);
+                                        main.setText(R.string.step4);
+                                    }
+                                });
 
                                 // Increases currentStop by 1 and writes it to file
                                 currentStop++;
@@ -182,11 +230,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                         }
                     }
                 }
-            } catch(Exception e){
+            } catch (Exception e) {
+            }
         }
+
     }
 
-}
     public void reset(View v) {
         FileWriter fw;
         File file = new File(getFilesDir().getPath().toString() + "/prefs.txt");
@@ -196,7 +245,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             fw.write(0);
             fw.flush();
             fw.close();
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 
@@ -213,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void onResume() {
-        Log.d("Beacons", "Program actually gets here");
         super.onResume();
         mBeaconManager = BeaconManager.getInstanceForApplication(this.getApplicationContext());
         // Detect the main Eddystone-UID frame:
