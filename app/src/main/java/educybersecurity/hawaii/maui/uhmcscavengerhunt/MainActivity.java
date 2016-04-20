@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     private int currentStop;
     private static final double RADIUS = 2;
     private static final String[] hexURLs = {
-            "http://test1url.net",
-            "http://www.example.com/folder/file2.ext/",
-            "http://www.example.com/folder/file3.ext/",
-            "http://www.example.com/folder/file4.ext/",
+            "https://goo.gl/1rFS5Y", // http://facebook.com/abit4maui
+            "https://goo.gl/xHgBWx", // http://maui.hawaii.edu/abit/
+            "http://goo.gl/GKx1eU", // http://maui.hawaii.edu/abit/abitin3
+            "http://goo.gl/tZbCPl", // http://maui.hawaii.edu/cybersecurity
             "http://www.example.com/folder/file5.ext/",
             "http://www.example.com/folder/file6.ext/"
     };
@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView content = (TextView) findViewById(R.id.step);
+        TextView info = (TextView) findViewById(R.id.info);
+        TextView next = (TextView) findViewById(R.id.next);
         // Creates a file for keeping track of steps, only happens once also initializes currentStop
         FileWriter fw;
         FileReader fr;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
         switch(currentStop) {
             case 0:
-                content.setText(R.string.step0);
+                info.setText(R.string.step0_next);
 /*
                 try {
                     currentStop++;
@@ -93,16 +94,20 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 */
                 break;
             case 1:
-                content.setText(R.string.step1);
+                info.setText(R.string.step1_info);
+                next.setText(R.string.step1_next);
                 break;
             case 2:
-                content.setText(R.string.step2);
+                info.setText(R.string.step2_info);
+                next.setText(R.string.step2_next);
                 break;
             case 3:
-                content.setText(R.string.step3);
+                info.setText(R.string.step3_info);
+                next.setText(R.string.step3_info);
                 break;
             case 4:
-                content.setText(R.string.step4);
+                info.setText(R.string.step4_info);
+                next.setText(R.string.step4_next);
                 break;
         }
 
@@ -162,8 +167,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 // update UI to step 1
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        TextView main = (TextView) findViewById(R.id.step);
-                                        main.setText(R.string.step1);
+                                        TextView info = (TextView) findViewById(R.id.info);
+                                        TextView next = (TextView) findViewById(R.id.next);
+                                        info.setText(R.string.step1_info);
+                                        next.setText(R.string.step1_next);
                                     }
                                 });
 
@@ -180,8 +187,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 // update UI to step 2
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        TextView main = (TextView) findViewById(R.id.step);
-                                        main.setText(R.string.step2);
+                                        TextView info = (TextView) findViewById(R.id.info);
+                                        TextView next = (TextView) findViewById(R.id.next);
+                                        info.setText(R.string.step2_info);
+                                        next.setText(R.string.step2_next);
                                     }
                                 });
 
@@ -197,8 +206,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 // update UI to step 3
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        TextView main = (TextView) findViewById(R.id.step);
-                                        main.setText(R.string.step3);
+                                        TextView info = (TextView) findViewById(R.id.info);
+                                        TextView next = (TextView) findViewById(R.id.next);
+                                        info.setText(R.string.step3_info);
+                                        next.setText(R.string.step3_next);
                                     }
                                 });
 
@@ -214,8 +225,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 // update UI to step 4
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        TextView main = (TextView) findViewById(R.id.step);
-                                        main.setText(R.string.step4);
+                                        TextView info = (TextView) findViewById(R.id.info);
+                                        TextView next = (TextView) findViewById(R.id.next);
+                                        info.setText(R.string.step4_info);
+                                        next.setText(R.string.step4_next);
                                     }
                                 });
 
