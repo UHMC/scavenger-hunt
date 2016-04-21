@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
         switch(currentStop) {
             case 0:
-                info.setText(R.string.step0_next);
+                info.setText(R.string.step0_info);
+                next.setText(R.string.step0_next);
                 break;
             case 1:
                 info.setText(R.string.step1_info);
@@ -147,7 +148,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             } catch (Exception e) {
             }
 
-
+            Log.d("bkon","Current URL: "+UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
+            Log.d("CurrentStop",Integer.toString(currentStop));
             try {
                 if (new String(UrlBeaconUrlCompressor.compress(hexURLs[currentStop]), "UTF-8").equals(new String(beacon.getId1().toByteArray(), "UTF-8"))) {
                     //NEXT STOP DETECTED
@@ -273,13 +275,14 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             fw.close();
         } catch (Exception e) {}
 
-
+        currentStop = 0;
         TextView info = (TextView) findViewById(R.id.info);
         TextView next = (TextView) findViewById(R.id.next);
 
         switch(currentStop) {
             case 0:
-                info.setText(R.string.step0_next);
+                info.setText(R.string.step0_info);
+                next.setText(R.string.step0_next);
                 break;
             case 1:
                 info.setText(R.string.step1_info);
@@ -303,7 +306,47 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 break;
         }
     }
+    public void plusOne(View v) {
+        FileWriter fw;
+        File file = new File(getFilesDir().getPath().toString() + "/prefs.txt");
+        currentStop++;
+        try {
+            fw = new FileWriter(file, false);
+            fw.write(currentStop);
+            fw.flush();
+            fw.close();
+        } catch (Exception e) {}
 
+        TextView info = (TextView) findViewById(R.id.info);
+        TextView next = (TextView) findViewById(R.id.next);
+
+        switch(currentStop) {
+            case 0:
+                info.setText(R.string.step0_info);
+                next.setText(R.string.step0_next);
+                break;
+            case 1:
+                info.setText(R.string.step1_info);
+                next.setText(R.string.step1_next);
+                break;
+            case 2:
+                info.setText(R.string.step2_info);
+                next.setText(R.string.step2_next);
+                break;
+            case 3:
+                info.setText(R.string.step3_info);
+                next.setText(R.string.step3_info);
+                break;
+            case 4:
+                info.setText(R.string.step4_info);
+                next.setText(R.string.step4_next);
+                break;
+            case 5:
+                info.setText(R.string.step5_info);
+                next.setText(R.string.step5_next);
+                break;
+        }
+    }
 
     public void onBeaconServiceConnect() {
         Log.d("Beacons", "How about here?");

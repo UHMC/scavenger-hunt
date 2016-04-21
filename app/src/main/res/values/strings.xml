@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">UHMC Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
-    <string name="step0_next">Please go to KAA 218 to begin the tour. </string>
-    <string name="step1_info">You\'re at 218</string>
+    <string name="step0_info">Please go to KAA 218 to begin the tour. </string>
+    <string name="step0_next"></string>
+    <string name="step1_info">Take a look at the ABIT projects being showcased\n\n\n http://mauisweetnspicy.com\nhttp://waiifoods.com\nhttp://themauicookielady.com\nhttp://josephinesmaui.com</string>
     <string name="step1_next">Towards 219</string>
     <string name="step2_info">You\'re at 219</string>
     <string name="step2_next">Go to 220</string>
     <string name="step3_info">You\'re at 220</string>
     <string name="step3_next">Go to 210</string>
-    <string name="step4_info"></string>
-    <string name="step4_next"></string>
+    <string name="step4_info">You\'re at 210</string>
+    <string name="step4_next">Go to 220</string>
     <string name="step5_info">End of the tour</string>
     <string name="step5_next">Thanks for playing! Brought to you by the UHMC Cybersecurity Team</string>
 </resources>
