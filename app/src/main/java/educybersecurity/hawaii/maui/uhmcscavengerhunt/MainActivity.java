@@ -82,16 +82,6 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         switch(currentStop) {
             case 0:
                 info.setText(R.string.step0_next);
-/*
-                try {
-                    currentStop++;
-                    fw = new FileWriter(file, false);
-                    fw.write(currentStop);
-                    fw.flush();
-                    fw.close();
-                } catch (Exception e) {}
-                Log.d("Step","I just finished writing to file, step 0 changed to step 1 | Current step: " + Integer.toString(currentStop));
-*/
                 break;
             case 1:
                 info.setText(R.string.step1_info);
@@ -281,7 +271,36 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             fw.write(0);
             fw.flush();
             fw.close();
-        } catch (Exception e) {
+        } catch (Exception e) {}
+
+
+        TextView info = (TextView) findViewById(R.id.info);
+        TextView next = (TextView) findViewById(R.id.next);
+
+        switch(currentStop) {
+            case 0:
+                info.setText(R.string.step0_next);
+                break;
+            case 1:
+                info.setText(R.string.step1_info);
+                next.setText(R.string.step1_next);
+                break;
+            case 2:
+                info.setText(R.string.step2_info);
+                next.setText(R.string.step2_next);
+                break;
+            case 3:
+                info.setText(R.string.step3_info);
+                next.setText(R.string.step3_info);
+                break;
+            case 4:
+                info.setText(R.string.step4_info);
+                next.setText(R.string.step4_next);
+                break;
+            case 5:
+                info.setText(R.string.step5_info);
+                next.setText(R.string.step5_next);
+                break;
         }
     }
 
