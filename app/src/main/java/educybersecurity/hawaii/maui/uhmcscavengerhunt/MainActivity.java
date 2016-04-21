@@ -32,7 +32,7 @@ import java.util.Collection;
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final int REQUEST_ENABLE_BT = 1;
     private int currentStop;
-    private static final double RADIUS = 2;
+    private static final double RADIUS = 1;
     private static final String[] hexURLs = {
             "https://goo.gl/1rFS5Y", // http://facebook.com/abit4maui
             "https://goo.gl/xHgBWx", // http://maui.hawaii.edu/abit/
@@ -108,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             case 4:
                 info.setText(R.string.step4_info);
                 next.setText(R.string.step4_next);
+                break;
+            case 5:
+                info.setText(R.string.step5_info);
+                next.setText(R.string.step5_next);
                 break;
         }
 
@@ -229,6 +233,25 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                         TextView next = (TextView) findViewById(R.id.next);
                                         info.setText(R.string.step4_info);
                                         next.setText(R.string.step4_next);
+                                    }
+                                });
+
+                                // Increases currentStop by 1 and writes it to file
+                                currentStop++;
+                                fw = new FileWriter(file, false);
+                                fw.write(currentStop);
+                                fw.flush();
+                                fw.close();
+                                Log.d("Step", Integer.toString(currentStop));
+                                break;
+                            case 4:
+                                // update UI to step 5
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        TextView info = (TextView) findViewById(R.id.info);
+                                        TextView next = (TextView) findViewById(R.id.next);
+                                        info.setText(R.string.step5_info);
+                                        next.setText(R.string.step5_next);
                                     }
                                 });
 

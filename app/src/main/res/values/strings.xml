@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">UHMC Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
-    <string name="step0_next">Please go to KAA 218 to begin the tour. (info to find step 1)</string>
-    <string name="step1_info">Are you interested in ABIT? Follow the link to learn more!\n\n http://google.com</string>
-    <string name="step1_next">Info to find step 2</string>
-    <string name="step2_info">Information on step 2 and URL</string>
-    <string name="step2_next">Info to find step 3</string>
-    <string name="step3_info">Information on step 3 and  URL</string>
-    <string name="step3_next">Info to find step 4</string>
-    <string name="step4_info">End of the tour</string>
-    <string name="step4_next">Thanks for playing! Brought to you by the UHMC Cybersecurity Team</string>
+    <string name="step0_next">Please go to KAA 218 to begin the tour. </string>
+    <string name="step1_info">You\'re at 218</string>
+    <string name="step1_next">Towards 219</string>
+    <string name="step2_info">You\'re at 219</string>
+    <string name="step2_next">Go to 220</string>
+    <string name="step3_info">You\'re at 220</string>
+    <string name="step3_next">Go to 210</string>
+    <string name="step4_info"></string>
+    <string name="step4_next"></string>
+    <string name="step5_info">End of the tour</string>
+    <string name="step5_next">Thanks for playing! Brought to you by the UHMC Cybersecurity Team</string>
 </resources>
