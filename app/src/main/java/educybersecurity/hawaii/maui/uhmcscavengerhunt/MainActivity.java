@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -32,13 +33,13 @@ import java.util.Collection;
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
     private static final int REQUEST_ENABLE_BT = 1;
     private int currentStop;
-    private static final double RADIUS = 1;
+    private static double radius = 1.1;
     private static final String[] hexURLs = {
-            "https://goo.gl/1rFS5Y", // http://facebook.com/abit4maui
-            "https://goo.gl/xHgBWx", // http://maui.hawaii.edu/abit/
-            "http://goo.gl/GKx1eU", // http://maui.hawaii.edu/abit/abitin3
-            "http://goo.gl/tZbCPl", // http://maui.hawaii.edu/cybersecurity
-            "http://www.example.com/folder/file5.ext/",
+            "http://phy.net/qwEwku?t!pxZ", // 218
+            "http://phy.net/FbMr9i?tVceh", // 219
+            "http://phy.net/9sdWgF?s00H0", // 220
+            "http://phy.net/iTkB6J?uNOXp", // 210
+            "http://goo.gl/mDO5US", // 109
             "http://www.example.com/folder/file6.ext/"
     };
     /**
@@ -134,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         File file = new File(getFilesDir().getPath().toString() + "/prefs.txt");
 
 
+
+
         for (Beacon beacon : beacons) {
             //Byte[] url=new Byte[]
             //Log.d("BeaconToString", UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
@@ -149,12 +152,22 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             }
 
             Log.d("bkon","Current URL: "+UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray()));
-            Log.d("CurrentStop",Integer.toString(currentStop));
+            Log.d("CurrentStop", Integer.toString(currentStop));
+            String url = UrlBeaconUrlCompressor.uncompress(beacon.getId1().toByteArray());
+            getIntent().putExtra("test",url);
+
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    String s = getIntent().getStringExtra("test");
+//                    Toast.makeText(getApplicationContext(),s , Toast.LENGTH_SHORT).show();
+//                }
+//            });
             try {
                 if (new String(UrlBeaconUrlCompressor.compress(hexURLs[currentStop]), "UTF-8").equals(new String(beacon.getId1().toByteArray(), "UTF-8"))) {
                     //NEXT STOP DETECTED
 
-                    if (beacon.getDistance() <= RADIUS) {
+                    if (beacon.getDistance() <= radius) {
 
                         //USER HAS VISITED THE LOCATION
 
@@ -235,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                                 fw.flush();
                                 fw.close();
                                 Log.d("Step", Integer.toString(currentStop));
+                                radius = 1.5;
                                 break;
                             case 4:
                                 // update UI to step 5
