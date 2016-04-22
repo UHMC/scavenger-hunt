@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
             "http://phy.net/FbMr9i?tVceh", // 219
             "http://phy.net/9sdWgF?s00H0", // 220
             "http://phy.net/iTkB6J?uNOXp", // 210
-            "http://goo.gl/mDO5US", // 109
+            "http://phy.net/jTHh29?tAsU8", // 109
             "http://www.example.com/folder/file6.ext/"
     };
     /**
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.title);
         TextView info = (TextView) findViewById(R.id.info);
         TextView next = (TextView) findViewById(R.id.next);
         // Creates a file for keeping track of steps, only happens once also initializes currentStop
@@ -308,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 break;
             case 3:
                 info.setText(R.string.step3_info);
-                next.setText(R.string.step3_info);
+                next.setText(R.string.step3_next);
                 break;
             case 4:
                 info.setText(R.string.step4_info);
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
                 break;
             case 3:
                 info.setText(R.string.step3_info);
-                next.setText(R.string.step3_info);
+                next.setText(R.string.step3_next);
                 break;
             case 4:
                 info.setText(R.string.step4_info);

@@ -1,16 +1,17 @@
 <resources>
-    <string name="app_name">UHMC Scavenger Hunt</string>
+    <string name="app_name">UHMC Open House Tour</string>
     <string name="action_settings">Settings</string>
+    <string name="title">UHMC Open House Tour</string>
     <string name="step0_info">Please go to KAA 218 to begin the tour. </string>
-    <string name="step0_next"></string>
-    <string name="step1_info">Take a look at the ABIT projects being showcased\n\n\n http://mauisweetnspicy.com\nhttp://waiifoods.com\nhttp://themauicookielady.com\nhttp://josephinesmaui.com</string>
-    <string name="step1_next">Towards 219</string>
-    <string name="step2_info">You\'re at 219</string>
-    <string name="step2_next">Go to 220</string>
-    <string name="step3_info">You\'re at 220</string>
-    <string name="step3_next">Go to 210</string>
-    <string name="step4_info">You\'re at 210</string>
-    <string name="step4_next">Go to 220</string>
-    <string name="step5_info">End of the tour</string>
-    <string name="step5_next">Thanks for playing! Brought to you by the UHMC Cybersecurity Team</string>
+    <string name="step0_next">Welcome! This app was created to showcase what Bluetooth Low Energy beacons can do. This will be a guided tour of the Kaaike building. Have fun!</string>
+    <string name="step1_info">In room 218, there will be presentations as well as Counseling</string>
+    <string name="step1_next">Go to room 219</string>
+    <string name="step2_info">Financial aid is located here in room 219</string>
+    <string name="step2_next">Go to room 220</string>
+    <string name="step3_info">This is our IT department, here we also create a lot of Cybersecurity projects. \n\nCheck out \nhttp://maui.hawaii.edu/cybersecurity/</string>
+    <string name="step3_next">Go to room 210</string>
+    <string name="step4_info">Have some food! There will be a Q/A with the Advisory board here in room 210</string>
+    <string name="step4_next">Go to room 109, lots of cool projects there!</string>
+    <string name="step5_info">Take a look at the ABIT projects being showcased\n\n\n http://mauisweetnspicy.com\nhttp://waiifoods.com\nhttp://themauicookielady.com\nhttp://josephinesmaui.com</string>
+    <string name="step5_next">Thank you for time! Brought to you by the UHMC Cybersecurity Team</string>
 </resources>

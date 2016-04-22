@@ -67,6 +67,8 @@
         android:layout_alignRight="@+id/next"
         android:layout_alignTop="@+id/button"
         android:onClick="plusOne"
-        android:text="Debug +1"/>
+        android:text="Debug +1"
+        android:alpha="0"
+        android:enabled="false"/>
 
 </RelativeLayout>
